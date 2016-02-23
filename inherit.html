@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style></style>
+<script>
+function Person(name,age){
+	this.name=name;
+	this.age=age;
+}
+Person.prototype.showName=function(){
+	alert('我的名字叫：'+this.name);
+};
+Person.prototype.showAge=function (){
+	alert(this.age);
+};
+function Worker(name,age,job){
+	Person.call(this,name,age);
+	this.job=job;
+}
+Worker.prototype=new Person();
+Worker.prototype.constructor=Worker;
+Worker.prototype.showJob=function(){
+	alert(this.job);
+};
+var oW=new Worker('张三',12,'laoshi');
+oW.showName();
+oW.showAge();
+oW.showJob();
+</script>
+</head>
+<body>
+</body>
+</html>

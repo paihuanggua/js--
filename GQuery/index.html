@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+ul{
+	width:100%;
+}
+li{
+	width:100%;
+	margin:10px;
+	height:20px;
+}
+.box2{
+	width:100px;
+	height:100px;
+	position:absolute;
+	top:100px;
+	left:0;
+	background:red;
+	
+}
+</style>
+<script src="GQuery.js"></script>
+<script>
+$(function(){
+	$('	.box  ').click(function(){
+			alert(1);
+	});
+	
+	
+	var aBox=$('.box ').elements;
+	
+	for(var i=0;i<aBox.length;i++){
+		aBox[i].style.background='red';
+	}
+	
+	
+	
+});
+</script>
+</head>
+<body>
+
+<input class="btn" type="button" value="qqq" />
+<p>aaaaaaaaaaaaaaaaaa</p>
+<div class="box2"></div>
+<ul>
+	<li class="box" aaa="123">1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+	<li class="box" aaa="123">6</li>
+</ul>
+
+</body>
+</html>

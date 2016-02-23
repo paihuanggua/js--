@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+div{
+	margin:0;
+	padding:0;
+	list-style:none;
+	width:200px;
+	height:200px;
+	background:#ccc;
+	position:absolute;
+	top:100px;
+	left:300px;
+}
+
+</style>
+<script>
+
+function dragAndDrop(object){
+	var lastX=object.offsetLeft;
+	var lastY=object.offsetTop;
+	var speedX=0;
+	var speenY=0;
+	var timer=null;
+	object.onmousedown=function(ev){
+		clearInterval(timer);
+		var oEvent=ev||event;
+		var disX=oEvent.clientX-object.offsetLeft;
+		var disY=oEvent.clientY-object.offsetTop;
+		
+		document.onmousemove=function(ev){
+			var oEvent=ev||event;
+			var l=oEvent.clientX-disX;
+			var t=oEvent.clientY-disY;
+			
+			
+			if(l<0){
+				l=0;
+			}else if(l>document.documentElement.clientWidth-object.offsetWidth){
+				l=document.documentElement.clientWidth-object.offsetWidth;
+			}
+			if(t<0){
+				t=0;
+			}else if(t>document.documentElement.clientHeight-object.offsetHeight){
+				t=document.documentElement.clientHeight-object.offsetHeight;
+			}
+			
+			object.style.left=l+'px';
+			object.style.top=t+'px';
+			
+			speedX=object.offsetLeft-lastX;
+			speedY=object.offsetTop-lastY;
+			lastX=object.offsetLeft;
+			lastY=object.offsetTop;
+		};
+		
+		document.onmouseup=function(ev){
+			document.onmousemove=null;
+			document.onmouseup=null;
+			object.releaseCapture&&object.releaseCapture();
+			
+			var oEvent=ev||event;
+			var l=oEvent.clientX-disX;
+			var t=oEvent.clientY-disY;
+			if(l<=0){
+				speedX=10;
+			}else if(l>=document.documentElement.clientWidth-object.offsetWidth){
+				speedX=10;
+			}
+			move();
+			
+		};
+		object.setCapture&&object.setCapture();
+		return false;
+	};
+	function move(){
+		clearInterval(timer);
+		timer=setInterval(function(){
+			speedY+=3;
+			var l=object.offsetLeft+speedX;
+			var t=object.offsetTop+speedY;
+			if(t>=document.documentElement.clientHeight-object.offsetHeight){
+				speedY*=-0.8;
+				speedX*=0.8;
+				t=document.documentElement.clientHeight-object.offsetHeight;
+			}else if(t<=0){
+				speedY*=-0.8;
+				speedX*=0.8;
+				t=0;
+			}
+			if(l>=document.documentElement.clientWidth-object.offsetWidth){
+				speedX*=-0.8;
+				speedY*=0.8;
+				l=document.documentElement.clientWidth-object.offsetWidth;
+			}else if(l<=0){
+				speedX*=-0.8;
+				speedY*=0.8;
+				l=0;
+			}
+				
+			object.style.left=l+'px';
+			object.style.top=t+'px';
+				
+			if(Math.abs(speedX)<1){
+				speedX=0;
+			}
+			if(Math.abs(speedY)<1){
+				speedY=0;
+			}
+			if(speedX==0 && speedY==0 && t==document.documentElement.clientHeight-object.offsetHeight){
+				clearInterval(timer);
+			}
+		},30);
+	}
+}
+window.onload=function(){
+	var oBox=document.getElementById('box');
+	dragAndDrop(oBox);
+};
+</script>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html> 

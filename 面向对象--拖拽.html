@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+#box{
+	width:200px;
+	height:200px;
+	background:red;
+	position:absolute;
+	top:0;
+	left:0;
+	font-size:25px;
+	text-align:center;
+	line-height:200px;
+}
+</style>
+<script>
+function Drag(id){
+	var _this=this;
+	this.oBox=document.getElementById(id);
+	this.oBox.onmousedown=function(ev){
+		_this.down(ev);
+	};
+	return false;
+}
+Drag.prototype.down=function(ev){
+	var _this=this;
+	var oEvent=ev||event;
+	this.disX=oEvent.clientX-this.oBox.offsetLeft;
+	this.disY=oEvent.clientY-this.oBox.offsetTop;
+	document.onmousemove=function(ev){
+		_this.move(ev);
+	};
+	document.onmouseup=function(){
+		_this.up();
+	};
+	this.oBox.setCapture&&this.oBox.setCapture();
+	
+}
+Drag.prototype.move=function(ev){
+	var oEvent=ev||event;
+	this.oBox.style.left=oEvent.clientX-this.disX+'px';
+	this.oBox.style.top=oEvent.clientY-this.disY+'px';
+};
+Drag.prototype.up=function(){
+	document.onmousemove=null;
+	document.onmouseup=null;
+	this.oBox.releaseCapture&&this.oBox.releaseCapture();
+};
+window.onload=function(){
+	new Drag('box');
+};
+</script>
+</head>
+<body>
+
+<div id="box">没事走两步</div>
+
+</body>
+</html>

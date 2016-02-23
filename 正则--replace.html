@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style></style>
+<script>
+var str='我的名字是：{$name},技能：{$skill},性别：{$sex}';
+var data = {name:'悟空',skill:'jdy',sex:'男'};
+str=str.replace(/\{\$\w+\}/g,function(s){
+	s=s.substring(2,s.length-1);
+	return data[s];
+});
+document.write(str);
+</script>
+</head>
+<body>
+</body>
+</html>

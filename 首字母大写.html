@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style></style>
+<script>
+//方法一
+var str='apple banana pear orange';
+var arr=str.split(' ');
+var result=[];
+for(var i=0;i<arr.length;i++){
+	var str=arr[i].charAt(0).toUpperCase()+arr[i].substring(1);
+	result.push(str);
+}
+document.write(result.join(' ')+'<br />');
+
+
+//方法二
+var str2='apple banana pear orange';
+document.write(str2.replace(/\w+/g,function(s){
+	return s.charAt(0).toUpperCase()+s.substring(1);
+}));
+
+
+
+</script>
+</head>
+<body>
+</body>
+</html>

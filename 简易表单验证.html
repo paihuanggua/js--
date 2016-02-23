@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+input.ok{border:1px solid green;}
+input.err{border:1px solid red;}
+</style>
+<script>
+var testArr={
+	uname:/^[\w\d]{6,23}$/,
+	age:/^((1[89])|([2-9]\d)|(100))$/,
+	email:/^\w+@[a-zA-Z0-9\-]+(\.[a-zA-Z]{2,6}){1,2}$/
+}
+function formCheck(id){
+	var oForm=document.getElementById(id);
+	var aInp=oForm.children;
+	oForm.onsubmit=function(){
+		var bOk=true;
+		for(var i=0;i<aInp.length;i++){
+			if(testArr[aInp[i].name]){
+				if(testArr[aInp[i].name].test(aInp[i].value)){
+					aInp[i].className='ok';
+				}else{
+					aInp[i].className='err';
+					bOk=false;
+				}
+			}
+		}
+		if(!bOk){
+			return false;
+		}
+	};
+}
+window.onload=function(){
+	formCheck('form1');
+};
+</script>
+</head>
+<body>
+
+<form id="form1" action="http://www.baidu.com">
+	用户名:<input type="text" name="uname" /><br />
+    年&nbsp;龄:<input type="text" name="age" /><br />
+    邮&nbsp;箱:<input type="text" name="email" /><br />
+    <input type="submit" />
+</form>
+
+</body>
+</html>

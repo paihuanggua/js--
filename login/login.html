@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="ajax.js"></script>
+<script>
+window.onload=function(){
+	var oUser=document.getElementById('uesr');
+	var oPass=document.getElementById('pass');
+	var oSignIn=document.getElementById('sign-in');
+	var oReg=document.getElementById('register');
+	oSignIn.onclick=function(){
+		ajax('user.php?act=login&user='+oUser.value+'&pass='+oPass.value,function(str){
+			alert(str);
+		},function(){
+			alert('失败');
+		});
+	};
+	oReg.onclick=function(){
+		ajax('user.php?act=add&user='+oUser.value+'&pass='+oPass.value,function(str){
+			alert(str);
+		},function(){
+			alert('失败');
+		});
+	};
+};
+</script>
+</head>
+<body>
+
+用户：<input type="text" id="uesr" /><br />
+密码：<input type="password" id="pass" /><br />
+<input type="button" value="登录" id="sign-in" />
+<input type="button" value="注册" id="register" />
+</body>
+</html>

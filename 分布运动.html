@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0; padding:0;}
+body{background:#fff;}
+span{font-size:50px; font-weight:bold; color:#000; opacity:0; filter:alpha(opacity:0);}
+</style>
+<script src="move.js"></script>
+<script>
+window.onload=function(){
+	var str='“ 一别四年，得知你和同村的乡亲们搬到了川区，住进了新房，吃上了自来水，收入也有了稳定保障，我由衷地为你们高兴。易地扶贫搬迁，就是要从源头斩断贫困之根，使乡亲们彻底告别因自然条件恶劣和偏远闭塞导致的贫困。新的水土滋养新的生活，整体搬迁既增添了新活力，又留存了老亲情。你和乡亲们生活的巨大变化，让仍处苦瘠山区的贫困群众看到了美好明天。党和政府将进一步加大扶贫工作力度，让更多的困难群众脱贫致富，过上幸福生活。你在信中说，只要人勤快，就能有钱挣，现在通过打工供养孩子们念书，这种做法我很赞成。希望你和乡亲们在新环境中日子越过越红火。” 在回信里，总理还请马西亮代问乡亲们好。';
+	for(var i=0;i<str.length;i++){
+		var oS=document.createElement('span');
+		oS.innerHTML=str.charAt(i);
+		document.body.appendChild(oS);
+	}
+	var aS = document.body.children;
+	var i=0;
+	var timer=setInterval(function(){
+		startMove(aS[i],{opacity:1});
+		i++;
+		if(i==aS.length){
+			clearInterval(timer);
+		}
+	},100);
+	
+};
+</script>
+</head>
+<body>
+</body>
+</html>

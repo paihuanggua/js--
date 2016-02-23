@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#page{
+	width:966px;
+	margin:0 auto;
+}
+#page ul{
+	width:300px;
+	border:1px solid red;
+	margin:10px;
+	float:left;
+}
+#page ul li{
+	width:100%;
+	padding:10px 0;
+}
+#page ul li img{
+	width:100%;
+	display:block;
+}
+</style>
+<script src="Ajax.js"></script>
+<script>
+window.onload=function(){
+	var oPage=document.getElementById('page');
+	var aUl=oPage.children;
+	var iNow=1;
+	function getPage(n){
+		ajax('flow.php?page='+n,function(str){
+			var arr=eval('('+str+')');
+			for(var i=0;i<arr.length;i++){
+				var oLi=document.createElement('li');
+				oLi.innerHTML='<img src="img/'+arr[i]+'">';
+				var oImg=oLi.children[0];
+				(function(oLi){
+					oImg.onload=function(){
+						var a=[];
+						for(var j=0;j<aUl.length;j++){
+							a[j]=aUl[j];
+						}
+						a.sort(function(ul1,ul2){
+							return ul1.offsetHeight-ul2.offsetHeight;
+						});
+						a[0].appendChild(oLi);
+					};
+				})(oLi);
+			}
+		},function(){
+			alert('读取失败');
+		});
+	}
+	getPage(iNow);
+	window.onscroll=window.onresize=function(){
+		var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+		if(scrollTop==document.body.scrollHeight-document.documentElement.clientHeight){
+			iNow++;
+			getPage(iNow);
+		}
+	};
+};
+</script>
+</head>
+<body>
+
+<div id="page">
+	<ul></ul>
+    <ul></ul>
+    <ul></ul>
+</div>
+
+</body>
+</html>
